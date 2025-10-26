@@ -24,9 +24,18 @@ function App() {
     setInput("");
   }
 
+  function handleChange(e) {
+    const value = e.target.value;
+    if (/^[0-9+\-*/.]*$/.test(value)) setInput(value);
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter") handleCalculate();
+    if (e.key === "Delete") handleClear();
+  }
   return (
     <div className="app">
-      <Display value={input}/>
+      <Display value={input} onChange={handleChange} handleKeyDown={handleKeyDown}/>
       <ButtonGrid onClick={handleClick} handleCalculate={handleCalculate} handleClear={handleClear}/>
     </div>
   );

@@ -12,7 +12,7 @@ export default function ButtonGrid({ onClick, handleCalculate, handleClear }) {
   return (
     <div>
       <div className="button-reset">
-        <Button value="RESET" onClick={handleClear} type="operator"/>
+        <Button value="DELETE" onClick={handleClear} type="operator"/>
       </div>
 
       <div className="button-grid">
