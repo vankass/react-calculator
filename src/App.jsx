@@ -7,7 +7,7 @@ function App() {
   const [input, setInput] = useState("");
 
   function handleClick(value) {
-    const operators = ["+", "-", "/", "*"];
+    const operators = ["+", "-", "/", "*", "."];
     if (operators.includes(value) && operators.includes(input.slice(-1))) return;
     setInput(input + value);
   }
@@ -24,6 +24,10 @@ function App() {
     setInput("");
   }
 
+  function handleBackSpace() {
+    setInput(prev => prev.slice(0, -1));
+  }
+
   function handleChange(e) {
     const value = e.target.value;
     if (/^[0-9+\-*/.]*$/.test(value)) setInput(value);
@@ -36,7 +40,7 @@ function App() {
   return (
     <div className="app">
       <Display value={input} onChange={handleChange} handleKeyDown={handleKeyDown}/>
-      <ButtonGrid onClick={handleClick} handleCalculate={handleCalculate} handleClear={handleClear}/>
+      <ButtonGrid onClick={handleClick} handleCalculate={handleCalculate} handleClear={handleClear} handleBackSpace={handleBackSpace}/>
     </div>
   );
 }
