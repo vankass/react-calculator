@@ -10,6 +10,7 @@ export default function ButtonGrid({
   handleCalculate,
   handleClear,
   handleBackSpace,
+  handleKeyDown,
 }) {
   const buttons = [
     "(",
@@ -77,7 +78,7 @@ export default function ButtonGrid({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClick, handleClear, handleCalculate, handleBackSpace]);
+  }, [onClick, handleClear, handleCalculate, handleBackSpace, handleKeyDown]);
 
   return (
     <div>
