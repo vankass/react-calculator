@@ -1,6 +1,13 @@
 .app {
+  display: flex;
+  gap: 20px;
+  margin-top: 18vh;
+  margin-left: 38vw;
+}
+
+.calculator {
   max-width: 350px;
-  margin: 150px auto;
+  max-height: min-content;
   text-align: center;
   background-color: rgb(247, 247, 247);
   padding: 20px;
