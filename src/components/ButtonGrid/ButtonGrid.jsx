@@ -12,6 +12,10 @@ export default function ButtonGrid({
   handleBackSpace,
 }) {
   const buttons = [
+    "(",
+    ")",
+    "DEL",
+    "<==",
     "7",
     "8",
     "9",
@@ -30,10 +34,12 @@ export default function ButtonGrid({
     "+",
   ];
 
-function playSound(type) {
-  const audio = new Audio(type === "operator" ? delSound : type === "enter" ? enterSound : tapSound);
-  audio.play();
-}
+  function playSound(type) {
+    const audio = new Audio(
+      type === "operator" ? delSound : type === "enter" ? enterSound : tapSound
+    );
+    audio.play();
+  }
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -48,12 +54,12 @@ function playSound(type) {
       } else if (key === "Delete") {
         playSound("operator");
         handleClear();
-        key = "DELETE";
+        key = "DEL";
       } else if (key === "Backspace") {
         playSound("operator");
         handleBackSpace();
         key = "<==";
-      } else if (/^[0-9+\-*/.]$/.test(key)) {
+      } else if (/^[0-9+\-*()/.]$/.test(key)) {
         playSound();
         onClick(key);
       } else {
@@ -75,35 +81,65 @@ function playSound(type) {
 
   return (
     <div>
-      <div className="button-reset">
-        <Button value="DELETE" onClick={() => {
-              playSound("operator");
-              handleClear();
-            }} type="operator" />
-        <Button value="<==" onClick={() => {
-              playSound("operator");
-              handleClear();
-            }} type="operator" />
-      </div>
-
       <div className="button-grid">
         {buttons.map((btn) => {
           if (btn === "=")
-            return <Button key={btn} value={btn} onClick={() => {
-              playSound("enter");
-              handleCalculate();
-            }} />;
-          if ("+-/*".includes(btn))
             return (
-              <Button key={btn} value={btn} onClick={() => {
-              playSound();
-              onClick(btn);
-            }} type="operator" />
+              <Button
+                key={btn}
+                value={btn}
+                onClick={() => {
+                  playSound("enter");
+                  handleCalculate();
+                }}
+              />
             );
-          return <Button key={btn} value={btn} onClick={() => {
-              playSound();
-              onClick(btn);
-            }} />;
+          if (btn === "DEL")
+            return (
+              <Button
+                key={btn}
+                value={btn}
+                onClick={() => {
+                  playSound("operator");
+                  handleClear();
+                }}
+                type="operator"
+              />
+            );
+          if (btn === "<==")
+            return (
+              <Button
+                key={btn}
+                value={btn}
+                onClick={() => {
+                  playSound("operator");
+                  handleBackSpace();
+                }}
+                type="operator"
+              />
+            );
+          if ("+-/*()".includes(btn))
+            return (
+              <Button
+                key={btn}
+                value={btn}
+                onClick={() => {
+                  playSound();
+                  onClick(btn);
+                }}
+                type="operator"
+              />
+            );
+          return (
+            <Button
+              key={btn}
+              value={btn}
+              onClick={() => {
+                playSound();
+                onClick(btn);
+              }}
+            />
+          );
         })}
       </div>
     </div>
