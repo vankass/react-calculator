@@ -1,5 +1,7 @@
 # 🧮 Calculator
 
+🇷🇺 [Русская версия](README.ru.md)
+
 A simple and clean calculator application.  
 A learning project to practice **React** and modern **JavaScript** skills.  
   
